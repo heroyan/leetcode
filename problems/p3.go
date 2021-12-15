@@ -58,3 +58,24 @@ func lengthOfLongestSubstring2(s string) int {
 
     return max
 }
+
+// 滑动窗口解法
+func lengthOfLongestSubstring3(s string) int {
+    window := map[uint8]int{}
+    slen := len(s)
+    var left int
+    var right int
+    var maxlen = 999999999999
+    for right < slen {
+        window[s[right]]++
+        for window[s[right]] > 1 {
+            if right - left < maxlen {
+                maxlen = right - left
+            }
+            window[s[left]]--
+            left++
+        }
+    }
+
+    return maxlen
+}
